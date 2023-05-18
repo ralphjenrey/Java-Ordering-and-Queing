@@ -1,5 +1,5 @@
 import javax.swing.*;
-import javax.swing.table.DefaultTableModel;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.LinkedList;
@@ -13,16 +13,29 @@ public class QueueForm1 extends JFrame {
     private JLabel nowServing;
     private JLabel error;
     private JTextField name_field;
-    private OrderingUI form;
-
-    public QueueForm1(Queue<String> customerQueue) {
+    private OrderingUI orderingUI;
+    public QueueForm1(Queue<String> customerQueue, OrderingUI orderingUI) {
         setContentPane(form1_container);
         setTitle("Admin Interface");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setSize(getPreferredSize());
-        setLocationRelativeTo(null);
+        // Get the screen size
+        Dimension screenSize = GraphicsEnvironment.getLocalGraphicsEnvironment().getMaximumWindowBounds().getSize();
+        int screenWidth = screenSize.width;
+        int screenHeight = screenSize.height;
+
+        // Calculate the maximum x and y coordinates
+        int X = screenWidth - getWidth(); //left vertical
+        int Y = (screenHeight - getHeight())/2; //middle horizontal
+
+        System.out.println("Maximum X: " + X);
+        System.out.println("Maximum Y: " + Y);
+
+        setLocation(X,Y);
         setVisible(true);
         setQueueValues(customerQueue);
+        this.orderingUI = orderingUI;
+        nowServing.setText(customerQueue.peek());
         dequeue.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -31,15 +44,11 @@ public class QueueForm1 extends JFrame {
                     nowServing.setText(customerQueue.peek());
                     setQueueValues(customerQueue);
                     error.setText("");
-                    DefaultTableModel model2 = form.getModel2();
-                    // Check if the model2 has rows
-                    if (model2.getRowCount() > 0) {
-                        // Remove the first row
-                        model2.removeRow(0);
-                    }
                 } else {
                     error.setText("Queue is empty");
                 }
+                // Remove the first row from table2 in OrderingUI
+                orderingUI.removeFirstRowFromTable2();
             }
         });
     }
@@ -56,13 +65,5 @@ public class QueueForm1 extends JFrame {
                 queues[i].setText("");
             }
         }
-    }
-
-
-
-    public static void main(String[] args) {
-        // Assuming you want to test the Queue_form1 class
-        Queue<String> customerQueue = new LinkedList<>();
-        QueueForm1 form1 = new QueueForm1(customerQueue);
     }
 }

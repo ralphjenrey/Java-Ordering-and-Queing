@@ -1,5 +1,9 @@
 import javax.swing.*;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.LinkedList;
@@ -32,10 +36,22 @@ public class OrderingUI extends JFrame{
         setContentPane(ordering_ui);
         setSize(getPreferredSize());
         setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setLocationRelativeTo(null);
+        // Get the screen size
+        Dimension screenSize = GraphicsEnvironment.getLocalGraphicsEnvironment().getMaximumWindowBounds().getSize();
+        int screenWidth = screenSize.width;
+        int screenHeight = screenSize.height;
+
+        // Calculate the maximum x and y coordinates
+        int X = screenWidth - screenWidth; //left vertical
+        int Y = (screenHeight - getHeight())/2; //middle horizontal
+
+        System.out.println("Maximum X: " + X);
+        System.out.println("Maximum Y: " + Y);
+
+        setLocation(X,Y);
         setVisible(true);
         int[] priorityNumber = {1};
-        form1 = new QueueForm1(customerQueue);
+        form1 = new QueueForm1(customerQueue, this);
         createTable();
         //Assign all foodPrice Label to a String of Array
         for (int i = 0; i < foodPrice.length; i++) {
@@ -54,42 +70,120 @@ public class OrderingUI extends JFrame{
         setActionListenersForFoodItem(8, add9, sub9, quantity9);
         setActionListenersForFoodItem(9, add10, sub10, quantity10);
 
+        // Add document listener for quantity fields
+        setDocumentListenerForQuantityField(quantity1);
+        setDocumentListenerForQuantityField(quantity2);
+        setDocumentListenerForQuantityField(quantity3);
+        setDocumentListenerForQuantityField(quantity4);
+        setDocumentListenerForQuantityField(quantity5);
+        setDocumentListenerForQuantityField(quantity6);
+        setDocumentListenerForQuantityField(quantity7);
+        setDocumentListenerForQuantityField(quantity8);
+        setDocumentListenerForQuantityField(quantity9);
+        setDocumentListenerForQuantityField(quantity10);
+
         printButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                customerQueue.add(customerName.getText());
-                String name = customerName.getText();
-                form1.setQueueValues(customerQueue);
-                System.out.println(customerQueue);
-                DefaultTableModel model1 = (DefaultTableModel) table1.getModel();
-                DefaultTableModel model2 = (DefaultTableModel) table2.getModel();
+                if(customerName.getText().isEmpty()){
+                    JOptionPane.showMessageDialog(null, "Fill customer name");
+                }
+                else{
+                    customerQueue.add(customerName.getText());
+                    String name = customerName.getText();
+                    form1.setQueueValues(customerQueue);
+                    System.out.println(customerQueue);
+                    DefaultTableModel model1 = (DefaultTableModel) table1.getModel();
+                    DefaultTableModel model2 = (DefaultTableModel) table2.getModel();
 
 
-                // Check if cart is empty
-                if (model1.getRowCount() == 0) {
-                    JOptionPane.showMessageDialog(null, "Cart cannot be empty");
-                    return;
+                    // Check if cart is empty
+                    if (model1.getRowCount() == 0) {
+                        JOptionPane.showMessageDialog(null, "Cart cannot be empty");
+                        return;
+                    }
+
+                    //Reference the JTextField quantity to clear Quantity and clear all values
+                    JTextField[] clearQuantity = {quantity1,quantity2,quantity3,quantity4,quantity5,quantity6,quantity7,quantity8,quantity9,quantity10};
+                    for (int i = 0; i < quantity.length; i++) {
+                        clearQuantity[i].setText("0");
+                        quantity[i] = 0;
+                    }
+
+                    // Add the row to model2 with the priority number
+                    model2.addRow(new Object[]{priorityNumber[0], name, totalPrice.getText().substring(13)});
+                    priorityNumber[0]++;
+                    for (int i = 0; i < subTotal.length; i++){
+                        subTotal[i] = 0;
+                    }
+
+                    // Clear table1
+                    model1.setRowCount(0);
+                    totalPrice.setText("Total Price: ");
                 }
 
-                //Reference the JTextField quantity to clear Quantity and clear all values
-                JTextField[] clearQuantity = {quantity1,quantity2,quantity3,quantity4,quantity5,quantity6,quantity7,quantity8,quantity9,quantity10};
-                for (int i = 0; i < quantity.length; i++) {
-                    clearQuantity[i].setText("0");
-                    quantity[i] = 0;
-                }
-
-                // Add the row to model2 with the priority number
-                model2.addRow(new Object[]{priorityNumber[0], name, totalPrice.getText().substring(13)});
-                priorityNumber[0]++;
-
-                // Clear table1
-                model1.setRowCount(0);
-                totalPrice.setText("Total Price: ");
             }
 
         });
 
 
     }
+    private void setDocumentListenerForQuantityField(JTextField quantityField) {
+        quantityField.getDocument().addDocumentListener(new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                updateQuantity(quantityField);
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                updateQuantity(quantityField);
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+                updateQuantity(quantityField);
+            }
+        });
+    }
+
+    private void updateQuantity(JTextField quantityField) {
+        for (int i = 0; i < 10; i++) {
+            if (quantityField.equals(getQuantityField(i))) {
+                try {
+                    quantity[i] = Integer.parseInt(quantityField.getText());
+                    double total = foodPrices[i] * quantity[i];
+                    subTotal[i] = total;
+                    updateTotalPrice(subTotal);
+                    updateTable(i, quantity[i], total);
+                } catch (NumberFormatException ex) {
+                    // Handle invalid input if needed
+                }
+                if (quantityField.getText().trim().isEmpty() ||quantity[i] <= 0) {
+                    DefaultTableModel model = (DefaultTableModel) table1.getModel();
+                    for (int row = 0; row < model.getRowCount(); row++) {
+                        if (model.getValueAt(row, 0).equals(foodLabels[i].getText())) {
+                            quantity[i] = 0;
+                            subTotal[i] = 0;
+                            model.removeRow(row);
+                            updateTotalPrice(subTotal);
+                            break;
+                        }
+                    }
+                }
+                break;
+            }
+        }
+    }
+
+
+    private JTextField getQuantityField(int index) {
+        JTextField[] quantityFields = {
+                quantity1, quantity2, quantity3, quantity4, quantity5,
+                quantity6, quantity7, quantity8, quantity9, quantity10
+        };
+        return quantityFields[index];
+    }
+
 
     private void setActionListenersForFoodItem(int index, JButton addButton, JButton subButton, JTextField quantityField) {
         addButton.addActionListener(new ActionListener() {
@@ -146,7 +240,9 @@ public class OrderingUI extends JFrame{
             }
         }
         // If row for the food item is not found, add a new row
-        model.addRow(new Object[]{foodLabels[foodIndex].getText(), newQuantity, foodPrice[foodIndex].getText(), newTotal});
+        if (newQuantity > 0) {
+            model.addRow(new Object[]{foodLabels[foodIndex].getText(), newQuantity, foodPrice[foodIndex].getText(), newTotal});
+        }
     }
     public void updateTotalPrice(double[] subTotal) {
         double total = 0.0;
@@ -155,9 +251,16 @@ public class OrderingUI extends JFrame{
         }
         totalPrice.setText("Total Price: ₱" + total);
     }
+    public void removeFirstRowFromTable2() {
+        DefaultTableModel model = (DefaultTableModel) table2.getModel();
+        if (model.getRowCount() > 0) {
+            model.removeRow(0);
+        }
+    }
 
     public static void main(String[] args) {
-       OrderingUI form = new OrderingUI();
+        OrderingUI form = new OrderingUI();
+
     }
 
 }
