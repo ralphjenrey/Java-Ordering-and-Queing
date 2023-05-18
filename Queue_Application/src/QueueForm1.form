@@ -1,0 +1,292 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="QueueForm1">
+  <grid id="27dc6" binding="form1_container" layout-manager="GridLayoutManager" row-count="9" column-count="5" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+    <margin top="5" left="5" bottom="5" right="5"/>
+    <constraints>
+      <xy x="17" y="20" width="575" height="454"/>
+    </constraints>
+    <properties>
+      <opaque value="true"/>
+      <preferredSize width="776" height="400"/>
+    </properties>
+    <border type="none"/>
+    <children>
+      <component id="3b11f" class="javax.swing.JTextField" binding="queue1">
+        <constraints>
+          <grid row="2" column="1" row-span="1" col-span="1" vsize-policy="7" hsize-policy="7" anchor="8" fill="0" indent="0" use-parent-layout="false">
+            <preferred-size width="218" height="24"/>
+          </grid>
+        </constraints>
+        <properties>
+          <editable value="false"/>
+          <enabled value="true"/>
+          <horizontalAlignment value="2"/>
+          <inheritsPopupMenu value="false"/>
+          <margin top="2" left="6" bottom="2" right="6"/>
+          <opaque value="true"/>
+          <verifyInputWhenFocusTarget value="true"/>
+        </properties>
+      </component>
+      <component id="c481e" class="javax.swing.JTextField" binding="queue2">
+        <constraints>
+          <grid row="3" column="1" row-span="1" col-span="1" vsize-policy="7" hsize-policy="7" anchor="8" fill="0" indent="0" use-parent-layout="false">
+            <preferred-size width="218" height="24"/>
+          </grid>
+        </constraints>
+        <properties>
+          <editable value="false"/>
+          <enabled value="true"/>
+          <horizontalAlignment value="2"/>
+          <inheritsPopupMenu value="false"/>
+          <margin top="2" left="6" bottom="2" right="6"/>
+          <opaque value="true"/>
+          <text value=""/>
+          <verifyInputWhenFocusTarget value="true"/>
+        </properties>
+      </component>
+      <component id="a6fab" class="javax.swing.JTextField" binding="queue3">
+        <constraints>
+          <grid row="4" column="1" row-span="1" col-span="1" vsize-policy="7" hsize-policy="7" anchor="8" fill="0" indent="0" use-parent-layout="false">
+            <preferred-size width="218" height="24"/>
+          </grid>
+        </constraints>
+        <properties>
+          <editable value="false"/>
+          <enabled value="true"/>
+          <horizontalAlignment value="2"/>
+          <inheritsPopupMenu value="false"/>
+          <margin top="2" left="6" bottom="2" right="6"/>
+          <opaque value="true"/>
+          <text value=""/>
+          <verifyInputWhenFocusTarget value="true"/>
+        </properties>
+      </component>
+      <component id="27d6e" class="javax.swing.JTextField" binding="queue4">
+        <constraints>
+          <grid row="5" column="1" row-span="1" col-span="1" vsize-policy="7" hsize-policy="7" anchor="8" fill="0" indent="0" use-parent-layout="false">
+            <preferred-size width="218" height="24"/>
+          </grid>
+        </constraints>
+        <properties>
+          <editable value="false"/>
+          <enabled value="true"/>
+          <horizontalAlignment value="2"/>
+          <inheritsPopupMenu value="false"/>
+          <margin top="2" left="6" bottom="2" right="6"/>
+          <opaque value="true"/>
+          <verifyInputWhenFocusTarget value="true"/>
+        </properties>
+      </component>
+      <component id="9ec26" class="javax.swing.JTextField" binding="queue5">
+        <constraints>
+          <grid row="6" column="1" row-span="1" col-span="1" vsize-policy="7" hsize-policy="7" anchor="8" fill="0" indent="0" use-parent-layout="false">
+            <preferred-size width="218" height="24"/>
+          </grid>
+        </constraints>
+        <properties>
+          <editable value="false"/>
+          <enabled value="true"/>
+          <horizontalAlignment value="2"/>
+          <inheritsPopupMenu value="false"/>
+          <margin top="2" left="6" bottom="2" right="6"/>
+          <opaque value="true"/>
+          <verifyInputWhenFocusTarget value="true"/>
+        </properties>
+      </component>
+      <component id="ff2d1" class="javax.swing.JLabel">
+        <constraints>
+          <grid row="2" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="1" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <text value="#6"/>
+        </properties>
+      </component>
+      <component id="4593b" class="javax.swing.JLabel">
+        <constraints>
+          <grid row="3" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="1" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <text value="#7"/>
+        </properties>
+      </component>
+      <component id="894d9" class="javax.swing.JLabel">
+        <constraints>
+          <grid row="4" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="1" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <text value="#8"/>
+        </properties>
+      </component>
+      <component id="754d4" class="javax.swing.JLabel">
+        <constraints>
+          <grid row="5" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="1" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <text value="#9"/>
+        </properties>
+      </component>
+      <component id="8cd04" class="javax.swing.JLabel">
+        <constraints>
+          <grid row="6" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="1" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <text value="#10"/>
+        </properties>
+      </component>
+      <component id="dd605" class="javax.swing.JTextField" binding="queue6">
+        <constraints>
+          <grid row="2" column="4" row-span="1" col-span="1" vsize-policy="7" hsize-policy="7" anchor="8" fill="0" indent="0" use-parent-layout="false">
+            <preferred-size width="218" height="24"/>
+          </grid>
+        </constraints>
+        <properties>
+          <editable value="false"/>
+          <enabled value="true"/>
+          <horizontalAlignment value="2"/>
+          <inheritsPopupMenu value="false"/>
+          <margin top="2" left="6" bottom="2" right="6"/>
+          <opaque value="true"/>
+          <text value=""/>
+          <verifyInputWhenFocusTarget value="true"/>
+        </properties>
+      </component>
+      <component id="72d7f" class="javax.swing.JTextField" binding="queue7">
+        <constraints>
+          <grid row="3" column="4" row-span="1" col-span="1" vsize-policy="7" hsize-policy="7" anchor="8" fill="0" indent="0" use-parent-layout="false">
+            <preferred-size width="218" height="24"/>
+          </grid>
+        </constraints>
+        <properties>
+          <editable value="false"/>
+          <enabled value="true"/>
+          <horizontalAlignment value="2"/>
+          <inheritsPopupMenu value="false"/>
+          <margin top="2" left="6" bottom="2" right="6"/>
+          <opaque value="true"/>
+          <verifyInputWhenFocusTarget value="true"/>
+        </properties>
+      </component>
+      <component id="a707" class="javax.swing.JTextField" binding="queue8">
+        <constraints>
+          <grid row="4" column="4" row-span="1" col-span="1" vsize-policy="7" hsize-policy="7" anchor="8" fill="0" indent="0" use-parent-layout="false">
+            <preferred-size width="218" height="24"/>
+          </grid>
+        </constraints>
+        <properties>
+          <editable value="false"/>
+          <enabled value="true"/>
+          <horizontalAlignment value="2"/>
+          <inheritsPopupMenu value="false"/>
+          <margin top="2" left="6" bottom="2" right="6"/>
+          <opaque value="true"/>
+          <verifyInputWhenFocusTarget value="true"/>
+        </properties>
+      </component>
+      <component id="ba3e3" class="javax.swing.JTextField" binding="queue9">
+        <constraints>
+          <grid row="5" column="4" row-span="1" col-span="1" vsize-policy="7" hsize-policy="7" anchor="8" fill="0" indent="0" use-parent-layout="false">
+            <preferred-size width="218" height="24"/>
+          </grid>
+        </constraints>
+        <properties>
+          <editable value="false"/>
+          <enabled value="true"/>
+          <horizontalAlignment value="2"/>
+          <inheritsPopupMenu value="false"/>
+          <margin top="2" left="6" bottom="2" right="6"/>
+          <opaque value="true"/>
+          <verifyInputWhenFocusTarget value="true"/>
+        </properties>
+      </component>
+      <component id="2e2d0" class="javax.swing.JTextField" binding="queue10">
+        <constraints>
+          <grid row="6" column="4" row-span="1" col-span="1" vsize-policy="7" hsize-policy="7" anchor="8" fill="0" indent="0" use-parent-layout="false">
+            <preferred-size width="218" height="24"/>
+          </grid>
+        </constraints>
+        <properties>
+          <editable value="false"/>
+          <enabled value="true"/>
+          <horizontalAlignment value="2"/>
+          <inheritsPopupMenu value="false"/>
+          <margin top="2" left="6" bottom="2" right="6"/>
+          <opaque value="true"/>
+          <text value=""/>
+          <verifyInputWhenFocusTarget value="true"/>
+        </properties>
+      </component>
+      <component id="eb2f5" class="javax.swing.JLabel">
+        <constraints>
+          <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <text value="#2"/>
+        </properties>
+      </component>
+      <component id="3b813" class="javax.swing.JLabel">
+        <constraints>
+          <grid row="4" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <text value="#3"/>
+        </properties>
+      </component>
+      <component id="af7c5" class="javax.swing.JLabel">
+        <constraints>
+          <grid row="5" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <text value="#4"/>
+        </properties>
+      </component>
+      <component id="c2108" class="javax.swing.JLabel">
+        <constraints>
+          <grid row="6" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <text value="#5"/>
+        </properties>
+      </component>
+      <component id="d23d" class="javax.swing.JButton" binding="dequeue">
+        <constraints>
+          <grid row="8" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <text value="Out"/>
+        </properties>
+      </component>
+      <component id="57a88" class="javax.swing.JLabel">
+        <constraints>
+          <grid row="0" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <text value="Now Serving"/>
+        </properties>
+      </component>
+      <component id="7fedb" class="javax.swing.JLabel" binding="nowServing">
+        <constraints>
+          <grid row="1" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <text value="Customer name"/>
+        </properties>
+      </component>
+      <component id="2bf48" class="javax.swing.JLabel">
+        <constraints>
+          <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <text value="#1"/>
+        </properties>
+      </component>
+      <component id="840d0" class="javax.swing.JLabel" binding="error">
+        <constraints>
+          <grid row="7" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <text value="Error"/>
+        </properties>
+      </component>
+    </children>
+  </grid>
+</form>
