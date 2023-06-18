@@ -5,6 +5,8 @@ import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -28,6 +30,7 @@ public class OrderingUI extends JFrame {
     private JLabel[] foodPriceLabels;
     private JTable table2;
     private JLabel totalPrice;
+    private JTextArea receipt;
     private double[] foodPrices;
     private double[] subTotal;
     private Queue<String> customerQueue;
@@ -41,19 +44,11 @@ public class OrderingUI extends JFrame {
         form1 = new QueueForm1(customerQueue, this);
     }
 
-
     private void initComponents() {
         setContentPane(orderingUI);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setSize(getPreferredSize());
-        // Get the screen size
-        Dimension screenSize = GraphicsEnvironment.getLocalGraphicsEnvironment().getMaximumWindowBounds().getSize();
-        int screenWidth = screenSize.width;
-        int screenHeight = screenSize.height;
-        // Calculate the maximum x and y coordinates
-        int X = 0; //left vertical
-        int Y = (screenHeight - getHeight())/2; //middle horizontal
-        setLocation(X,Y);
+        setLocationRelativeTo(null);
         setVisible(true);
 
         addButtonArray = new JButton[]{add1, add2, add3, add4, add5, add6, add7, add8, add9, add10};
@@ -82,65 +77,78 @@ public class OrderingUI extends JFrame {
     }
 
     private void initListeners() {
-        printButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                if (customerName.getText().isEmpty()) {
-                    JOptionPane.showMessageDialog(null, "Fill customer name");
-                } else {
-                    DefaultTableModel model1 = (DefaultTableModel) table1.getModel();
-                    DefaultTableModel model2 = (DefaultTableModel) table2.getModel();
+        printButton.addActionListener(e -> {
+            if (customerName.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(null, "Fill customer name");
+            } else {
+                DefaultTableModel model1 = (DefaultTableModel) table1.getModel();
+                DefaultTableModel model2 = (DefaultTableModel) table2.getModel();
 
-                    if (model1.getRowCount() == 0) {
-                        JOptionPane.showMessageDialog(null, "Cart cannot be empty");
-                        return;
-                    }
-
-                    customerQueue.add(customerName.getText());
-                    String name = customerName.getText();
-                    form1.setQueueValues(customerQueue);
-
-                    double total = calculateTotalPrice(model1);
-
-                    JTextField[] clearQuantity = quantityFieldArray;
-                    clearQuantities();
-
-                    model2.addRow(new Object[]{model2.getRowCount() + 1, name, "₱" + total});
-                    clearSubtotals();
-
-                    model1.setRowCount(0);
-                    totalPrice.setText("Total Price: ");
+                if (model1.getRowCount() == 0) {
+                    JOptionPane.showMessageDialog(null, "Cart cannot be empty");
+                    return;
                 }
+
+                customerQueue.add(customerName.getText());
+                String name = customerName.getText();
+                form1.setQueueValues(customerQueue);
+
+                double total = calculateTotalPrice(model1);
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+                LocalDateTime now = LocalDateTime.now();
+                String currentDateTime = now.format(formatter);
+                receipt.setText("");
+
+                receipt.append("Receipt\n");
+                receipt.append("-----------------------------\n");
+                receipt.append("Date and Time: " + currentDateTime + "\n");
+                receipt.append("Customer Name: " + name + "\n");
+                receipt.append("Priority Number: " + (model2.getRowCount() + 1) + "\n");
+                receipt.append("-----------------------------\n");
+                receipt.append("Food\tQuantity\tPrice\tSubTotal\n");
+
+                for (int row = 0; row < model1.getRowCount(); row++) {
+                    String food = model1.getValueAt(row, 0).toString();
+                    String quantity = model1.getValueAt(row, 1).toString();
+                    String price = model1.getValueAt(row, 2).toString();
+                    String subtotal = model1.getValueAt(row, 3).toString();
+
+                    receipt.append(food + "\t" + quantity + "\t" + price + "\t" + subtotal + "\n");
+                }
+
+                receipt.append("Total Price: \t\t\t" + total);
+                clearQuantities();
+
+                model2.addRow(new Object[]{model2.getRowCount() + 1, name, "₱" + total});
+                clearSubtotals();
+
+                model1.setRowCount(0);
+                totalPrice.setText("Total Price: ");
             }
         });
 
         for (int i = 0; i < addButtonArray.length; i++) {
             final int index = i;
-            addButtonArray[i].addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    int quantity = quantities.get(index) + 1;
+            addButtonArray[i].addActionListener(e -> {
+                int quantity = quantities.get(index) + 1;
+                quantities.set(index, quantity);
+                quantityFieldArray[index].setText(Integer.toString(quantity));
+                double total = foodPrices[index] * quantity;
+                subTotal[index] = total;
+                updateTotalPrice();
+                updateTable(index, quantity, total);
+            });
+
+            subButtonArray[i].addActionListener(e -> {
+                int quantity = quantities.get(index);
+                if (quantity > 0) {
+                    quantity--;
                     quantities.set(index, quantity);
                     quantityFieldArray[index].setText(Integer.toString(quantity));
                     double total = foodPrices[index] * quantity;
                     subTotal[index] = total;
                     updateTotalPrice();
                     updateTable(index, quantity, total);
-                }
-            });
-
-            subButtonArray[i].addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    int quantity = quantities.get(index);
-                    if (quantity > 0) {
-                        quantity--;
-                        quantities.set(index, quantity);
-                        quantityFieldArray[index].setText(Integer.toString(quantity));
-                        double total = foodPrices[index] * quantity;
-                        subTotal[index] = total;
-                        updateTotalPrice();
-                        updateTable(index, quantity, total);
-                    }
                 }
             });
 
@@ -254,6 +262,7 @@ public class OrderingUI extends JFrame {
             updatePriorityNumbers();
         }
     }
+
     private void updatePriorityNumbers() {
         DefaultTableModel model2 = (DefaultTableModel) table2.getModel();
         for (int row = 0; row < model2.getRowCount(); row++) {
@@ -262,12 +271,6 @@ public class OrderingUI extends JFrame {
     }
 
     public static void main(String[] args) {
-        SwingUtilities.invokeLater(new Runnable() {
-            public void run() {
-                new OrderingUI();
-            }
-        });
+        SwingUtilities.invokeLater(OrderingUI::new);
     }
 }
-
-

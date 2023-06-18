@@ -23,14 +23,9 @@ public class QueueForm1 extends JFrame {
         Dimension screenSize = GraphicsEnvironment.getLocalGraphicsEnvironment().getMaximumWindowBounds().getSize();
         int screenWidth = screenSize.width;
         int screenHeight = screenSize.height;
-
         // Calculate the maximum x and y coordinates
         int X = screenWidth - getWidth(); //left vertical
         int Y = (screenHeight - getHeight())/2; //middle horizontal
-
-        System.out.println("Maximum X: " + X);
-        System.out.println("Maximum Y: " + Y);
-
         setLocation(X,Y);
         setVisible(true);
         setQueueValues(customerQueue);
