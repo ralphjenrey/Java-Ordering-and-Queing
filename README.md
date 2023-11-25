@@ -1,6 +1,6 @@
-#DSJavaProject2ndYear
-##Installation Instructions
-##Download or Clone Repository
+# DSJavaProject2ndYear
+## Installation Instructions
+## Download or Clone Repository
 Download Zip:
 
 Click here to download the repository as a zip file.
@@ -13,7 +13,7 @@ Clone Repository:
     git clone https://github.com/username/repository.git
     ```
 
-###Navigate to Source Code
+### Navigate to Source Code
 Open your terminal or command prompt and navigate to the Queue_Application/src directory inside the downloaded/cloned repository.
 Run the Application
 Execute the OrderingUI.java file to launch the application.
