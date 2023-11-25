@@ -3,7 +3,7 @@
 ## Download or Clone Repository
 Download Zip:
 
-Click here to download the repository as a zip file.
+Download the repository as a zip file.
 Clone Repository:
 
 - **Download or Clone Repository:**
