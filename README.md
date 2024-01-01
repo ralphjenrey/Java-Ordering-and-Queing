@@ -1,4 +1,7 @@
 # Java Ordering and Queing
+### Tech used
+-IntelliJ IDEA
+-Java Swing UI
 ## Description and Features
 - Food Orders
 - Change Calculation
