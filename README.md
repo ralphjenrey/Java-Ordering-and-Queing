@@ -1,4 +1,11 @@
-# DSJavaProject2ndYear
+# Java Ordering and Queing
+## Description and Features
+- Food Orders
+- Change Calculation
+- Automatic Queuing after paying
+- Receipt Generatation with timestamp
+- You can dequeue after customer is done and queue will move
+
 ## Installation Instructions
 ## Download or Clone Repository
 Download Zip:
